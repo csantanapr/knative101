@@ -22,7 +22,7 @@ In this lab, we'll use the [IBM Container Registry](https://console.bluemix.net/
     ```
     ibmcloud plugin install container-registry
     ```
-2. Choose a name for your first namespace, and create it. A namespace represents the spot within a registry that holds your images. You can set up multiple namespaces as well as control access to your namespaces by using IAM policies.
+2. Add a namespace to your account. You must set at least one namespace to store images in IBM Cloud Container Registry. Choose a unique name for your first namespace. A namespace is a collection of related repositories (which in turn are made up of individual images). You can set up multiple namespaces as well as control access to your namespaces by using IAM policies.
 
     ```
     ibmcloud cr namespace-add <my_namespace>
@@ -30,13 +30,13 @@ In this lab, we'll use the [IBM Container Registry](https://console.bluemix.net/
 3. Create a token. This token is a non-expiring token with read and write access to all namespaces in the region. The automated build processes you'll be setting up will use this token to access your images.
 
     ```
-    ibmcloud cr token-add --description "read write token for all namespaces" --non-expiring --readwrite
+    ibmcloud cr token-add --description "knative read write token for all namespaces" --non-expiring --readwrite
     ```
 
 4. The CLI output should include a Token Identifier and the Token. Make note of the Token for later in this lab. You will not need the Token Identifier. You can verify that the token was created by listing all tokens.
 
     ```
-    ibmcloud cr token-list
+    ibmcloud cr token-list | grep knative
     ```
 
 ### Provide Container Registry Credentials
@@ -44,7 +44,7 @@ This lab will need credentials for authenticating to your private container regi
 
 A `Secret` is a Kubernetes object containing sensitive data such as a password, a token, or a key. You can also read more about [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/).
 
-1. Let's create a the secret, which will be a `docker-registry` type secret. This type of secret is used to authenticate with a container registry to pull down a private image. We can create this via the commandline. For username, simply use the string `token`. For <token_value>, use the token you made note of earlier.
+1. Let's create a secret, which will be a `docker-registry` type secret. This type of secret is used to authenticate with a container registry to pull down a private image. We can create this via the commandline. For username, simply use the string `token`. For <token_value>, use the token you made note of earlier.
 
     ```
     kubectl create secret docker-registry ibm-cr-secret --docker-server=https://registry.ng.bluemix.net --docker-username=token --docker-password=<token_value>
