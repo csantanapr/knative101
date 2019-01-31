@@ -6,20 +6,20 @@ Knative is currently built on top of both Kubernetes and Istio. You will need to
 
 1. A Custom Resource Definition enables you to create custom resources, extensions to the Kubernetes API on your Kubernetes cluster. Istio needs these CRDs to be created before we can install.  Install Istio’s CRDs via kubectl apply, and wait a few seconds for the CRDs to be committed in the kube-apiserver.
 
-	```
-	kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio-crds.yaml
-	```
+    ```
+    kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio-crds.yaml
+    ```
 
 2. Install Istio:
 
-	```
-	kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml
-	```
+    ```
+    kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml
+    ```
 3. Label the default namespace with `istio-injection=enabled`:
 
-	```
-	kubectl label namespace default istio-injection=enabled
-	```
+    ```
+    kubectl label namespace default istio-injection=enabled
+    ```
 
 4. Monitor the Istio components until all of the components show a `STATUS` of
     `Running` or `Completed`:
@@ -71,7 +71,7 @@ After installing Istio, you can install Knative. For this lab, we will install a
 
 4. Monitor the Knative components until all of the components show a `STATUS` of `Running` or `Completed`:
 
-	Commands:
+    Commands:
     ```
     kubectl get pods --namespace knative-serving
     kubectl get pods --namespace knative-monitoring
@@ -120,13 +120,13 @@ As a part of this lab, we will use the [kaniko](https://github.com/GoogleContain
 
 2. Use kubectl to confirm you installed the kaniko build template, as well as to see some more details about it.  You'll see that this build template accepts parameters of `IMAGE` and `DOCKERFILE`.  `IMAGE` is the name of the image you will push to the container registry, and `DOCKERFILE` is the path to the Dockerfile that will be built.
 
-	Command:
-	```
-	kubectl get buildtemplate kaniko -o yaml
-	```
+    Command:
+    ```
+    kubectl get buildtemplate kaniko -o yaml
+    ```
 
-	Example Output:
-	```yaml
+    Example Output:
+    ```yaml
     spec:
     generation: 1
     parameters:
