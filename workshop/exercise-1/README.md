@@ -144,7 +144,7 @@ As a part of this lab, we will use the [kaniko](https://github.com/GoogleContain
         value: /builder/home/.docker
         image: gcr.io/kaniko-project/executor
         name: build-and-push
-	```
+    ```
 
 
 Continue on to [exercise 2](../exercise-2/README.md).
